@@ -13,7 +13,7 @@ if ($_SERVER["REQUEST_METHOD"] != "POST") {
 $firstname = htmlspecialchars($_POST["firstname"]);
 $lastname = htmlspecialchars($_POST["lastname"]);
 $email = htmlspecialchars(filter_var($_POST["email"], FILTER_SANITIZE_EMAIL));
-$password = htmlspecialchars($_POST["password"]);
+$password = password_hash(($_POST["password"]), PASSWORD_DEFAULT);
 
 /* Préparation de la requête */
 $query = $dbh->prepare("INSERT INTO users (firstname, lastname, email, password) VALUES (?, ?, ?, ?);");
