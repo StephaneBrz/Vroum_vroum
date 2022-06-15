@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : db:3306
--- Généré le : mer. 15 juin 2022 à 10:50
+-- Généré le : mer. 15 juin 2022 à 12:49
 -- Version du serveur : 5.7.38
 -- Version de PHP : 8.0.19
 
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de données : `vroum`
+-- Base de données : `VROUM`
 --
 
 -- --------------------------------------------------------
@@ -38,8 +38,7 @@ CREATE TABLE `ad` (
   `brand` varchar(255) NOT NULL,
   `power` int(11) NOT NULL,
   `year` int(11) NOT NULL,
-  `id_user` int(11) NOT NULL,
-  `id_bid` int(11) NOT NULL
+  `id_user` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -54,20 +53,6 @@ CREATE TABLE `bids` (
   `id_ad` int(11) NOT NULL,
   `date` datetime DEFAULT CURRENT_TIMESTAMP,
   `price` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- --------------------------------------------------------
-
---
--- Structure de la table `seller`
---
-
-CREATE TABLE `seller` (
-  `id` int(11) NOT NULL,
-  `firstname` varchar(255) NOT NULL,
-  `lastname` varchar(255) NOT NULL,
-  `email` varchar(255) NOT NULL,
-  `password` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -100,15 +85,8 @@ ALTER TABLE `ad`
 --
 ALTER TABLE `bids`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `id_ad` (`id_ad`),
-  ADD KEY `id_user` (`id_user`);
-
---
--- Index pour la table `seller`
---
-ALTER TABLE `seller`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `email` (`email`);
+  ADD KEY `id_user` (`id_user`),
+  ADD KEY `id_ad` (`id_ad`);
 
 --
 -- Index pour la table `users`
@@ -134,12 +112,6 @@ ALTER TABLE `bids`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT pour la table `seller`
---
-ALTER TABLE `seller`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
 -- AUTO_INCREMENT pour la table `users`
 --
 ALTER TABLE `users`
@@ -153,14 +125,14 @@ ALTER TABLE `users`
 -- Contraintes pour la table `ad`
 --
 ALTER TABLE `ad`
-  ADD CONSTRAINT `ad_ibfk_1` FOREIGN KEY (`id_user`) REFERENCES `seller` (`id`);
+  ADD CONSTRAINT `ad_ibfk_1` FOREIGN KEY (`id_user`) REFERENCES `users` (`id`);
 
 --
 -- Contraintes pour la table `bids`
 --
 ALTER TABLE `bids`
-  ADD CONSTRAINT `bids_ibfk_1` FOREIGN KEY (`id_ad`) REFERENCES `ad` (`id`),
-  ADD CONSTRAINT `bids_ibfk_2` FOREIGN KEY (`id_user`) REFERENCES `users` (`id`);
+  ADD CONSTRAINT `bids_ibfk_1` FOREIGN KEY (`id_user`) REFERENCES `users` (`id`),
+  ADD CONSTRAINT `bids_ibfk_2` FOREIGN KEY (`id_ad`) REFERENCES `ad` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
