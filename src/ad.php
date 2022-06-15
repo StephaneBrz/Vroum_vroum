@@ -1,7 +1,7 @@
 <?php
 
 /* Import */
-//require_once __DIR__ . "/lib/db.php";
+require_once __DIR__ . "/lib/db.php";
 
 /* Si le verbe HTTP est différent de POST */
 if ($_SERVER["REQUEST_METHOD"] != "POST") {
@@ -22,14 +22,14 @@ $year = htmlspecialchars($_POST["year"]);
 $id_user = htmlspecialchars($_POST["id_user"]);
 
 
-$dbh = new PDO("mysql:dbname=VROUM;host=mysql", "root", "root");
+//$dbh = new PDO("mysql:dbname=VROUM;host=mysql", "root", "root");
 /* Préparation de la requête */
 $query = $dbh->prepare("INSERT INTO ad (title,description,beginprice,	reserveprice ,enddate ,	model ,	brand ,	power, 	year,`id_user`) VALUES (?, ?, ?, ?, ?,?,?,?,?,?);");
 
 /* Exécution de la requête */
 /* On obtient une valeur de résultat indiquant le nombre de lignes affectées par la requête */
 $result = $query->execute([$title, $description, $beginprice, $reserveprice, $enddate, $model, $brand, $power, $year, $id_user]);
-$ad = $query->fetchAll()
+$ads = $query->fetchAll(PDO::FETCH_ASSOC)
 ?>
 
 <!DOCTYPE html>
@@ -37,7 +37,7 @@ $ad = $query->fetchAll()
 
 <head>
     <meta charset="UTF-8">
-    <title>Contact Form</title>
+    <title>annonce vue</title>
 </head>
 
 <body>
@@ -46,6 +46,46 @@ $ad = $query->fetchAll()
     <?php } else { ?>
         <p>Une erreur s'est produite, veuillez réessayer</p>
     <?php } ?>
+    <table>
+
+
+        <thead>
+            <tr>
+                <th>title</th>
+                <th>description</th>
+                <th>beginprice</th>
+                <th>reserveprice</th>
+                <th>enddate</th>
+                <th>model</th>
+                <th>brand</th>
+                <th>power</th>
+                <th>year</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php foreach ($ads as  $ad) { ?>
+                <tr>
+                    <td><?= $ad["title"] ?></td>
+                    <td><?= $ad["description"] ?></td>
+                    <td><?= $ad["beginprice"] ?></td>
+                    <td><?= $ad["reserveprice"] ?></td>
+                    <td><?= $ad["enddate"] ?></td>
+                    <td><?= $ad["model"] ?></td>
+                    <td><?= $ad["brand"] ?></td>
+                    <td><?= $ad["power"] ?></td>
+                    <td><?= $ad["year"] ?></td>
+                    <td>
+                        <form action="detail-ad.php" method="post">
+                            <input type="hidden" name="id" value="<?= $ad["id"] ?>">
+                            <input type="submit" value="detail ad">
+                        </form>
+                    </td>
+                </tr>
+            <?php }
+            echo $ads[0]["title"] ?> ?>
+        </tbody>
+    </table>
+
 </body>
 
 </html>
