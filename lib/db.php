@@ -1,4 +1,4 @@
 <?php
 
 /* Connexion à la BDD */
-$dbh = new PDO("mysql:dbname=vroum;host=mysql", "root", "root");
+$dbh = new PDO("mysql:dbname=VROUM;host=mysql", "root", "root");
