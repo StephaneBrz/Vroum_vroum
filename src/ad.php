@@ -1,7 +1,7 @@
 <?php
 
 /* Import */
-require_once __DIR__ . "/lib/db.php";
+//require_once __DIR__ . "/lib/db.php";
 
 /* Si le verbe HTTP est différent de POST */
 if ($_SERVER["REQUEST_METHOD"] != "POST") {
@@ -19,14 +19,17 @@ $model = htmlspecialchars($_POST["model"]);
 $brand = htmlspecialchars($_POST["brand"]);
 $power = htmlspecialchars($_POST["power"]);
 $year = htmlspecialchars($_POST["year"]);
+$id_user = htmlspecialchars($_POST["id_user"]);
 
+
+$dbh = new PDO("mysql:dbname=VROUM;host=mysql", "root", "root");
 /* Préparation de la requête */
-$query = $dbh->prepare("INSERT INTO ad (title,description,beginprice,	reserveprice ,enddate ,	model ,	brand ,	power, 	year) VALUES (?, ?, ?, ?, ?,?,?);");
+$query = $dbh->prepare("INSERT INTO ad (title,description,beginprice,	reserveprice ,enddate ,	model ,	brand ,	power, 	year,`id_user`) VALUES (?, ?, ?, ?, ?,?,?,?,?,?);");
 
 /* Exécution de la requête */
 /* On obtient une valeur de résultat indiquant le nombre de lignes affectées par la requête */
-$result = $query->execute([$title, $description, $beginprice, $reserveprice, $enddate, $model, $brand, $power, $year]);
-
+$result = $query->execute([$title, $description, $beginprice, $reserveprice, $enddate, $model, $brand, $power, $year, $id_user]);
+$ad = $query->fetchAll()
 ?>
 
 <!DOCTYPE html>

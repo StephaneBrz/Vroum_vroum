@@ -8,6 +8,8 @@
     <title>VRoum VRoum</title>
 </head>
 
+
+
 <body>
     <h2>Creation Annonce</h2>
     <form action="ad.php" method="POST">
@@ -20,15 +22,19 @@
         <label>beginprice</label>
         <input type="number" name="beginprice" step="0.01">
         <label>reserveprice</label>
-        <input type="number" name="reserveprice step=" 0.01">
+        <input type="number" name="reserveprice" step=" 0.01">
         <label>enddate</label>
-        <input type="text" name="message">
+        <input type="text" name="enddate">
         <label>model</label>
         <input type="text" name="model">
         <label>brand</label>
         <input type="text" name="brand">
+        <label>power</label>
+        <input type="text" name="power">
         <label>year</label>
         <input type="number" name="year" min="1910" max="2022">
+        <label>ID utilisateur</label>
+        <input type="number" name="id_user">
 
 
         <input type="submit" value="Register">
