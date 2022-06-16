@@ -34,7 +34,7 @@ $ad = $query->fetch();
 <body>
     <h2>Annonce n° <?= $ad["id"] ?></h2>
     <ul>
-        <!-- Photo de la voiture -->
+        <li><?= $ad["fileimage"] ?></li>
         <li><?= $ad["title"] ?></li>
         <li><?= $ad["description"] ?></li>
         <li><?= $ad["brand"] ?></li>
