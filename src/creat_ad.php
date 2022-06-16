@@ -2,6 +2,8 @@
 
 /* Import */
 require_once __DIR__ . "/lib/db.php";
+require_once __DIR__ . "/showad.php";
+
 
 /* Si le verbe HTTP est différent de POST */
 if ($_SERVER["REQUEST_METHOD"] != "POST") {
