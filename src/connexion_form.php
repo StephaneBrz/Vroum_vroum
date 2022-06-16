@@ -1,3 +1,9 @@
+<?php
+require_once __DIR__ ."/nav.php";
+require_once __DIR__ ."/footer.php";
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -7,7 +13,9 @@
 </head>
 
 <body>
-
+    <header>
+        <?php echo Afficher_nav() ?>
+    </header>
         <h1>Formulaire de connexion</h1>
         <form action="connexion.php" method="POST">
 
@@ -21,6 +29,10 @@
 
             <a href="user.php">Vous n'avez pas encore de compte, c'est le moment d'en créer un!</a>
         </form>
+    <footer>
+        <?php echo Afficher_footer() ?>
+    </footer>
+        
 
 </body>
 
