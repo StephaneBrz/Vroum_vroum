@@ -2,6 +2,7 @@
 
 /* Import */
 require_once __DIR__ . "/lib/db.php";
+require_once __DIR__ . "/bid_on_ad.php";
 
 /* Si le verbe HTTP est différent de POST */
 if ($_SERVER["REQUEST_METHOD"] != "POST") {
@@ -41,12 +42,12 @@ $ad = $query->fetch();
         <li><?= $ad["power"] ?></li>
         <li><?= $ad["enddate"] ?></li>
         <!-- Montant enchère en cours -->
-        <!-- Input type number saisi d'enchère -->
-        <!-- button ENCHERIR -->
 
+        <?= Afficher_encherir() ?>
     </ul>
 
     <a href="index.php">Revenir à la liste des annonces</a>
+
 </body>
 
 </html>
