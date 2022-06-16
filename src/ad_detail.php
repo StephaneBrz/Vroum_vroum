@@ -28,6 +28,7 @@ $ad = $query->fetch();
 <head>
     <meta charset="UTF-8">
     <title>Détail de l'annonce</title>
+    <title><?php echo $id ?></title>
 </head>
 
 <body>
@@ -43,7 +44,7 @@ $ad = $query->fetch();
         <li><?= $ad["enddate"] ?></li>
         <!-- Montant enchère en cours -->
 
-        <?= Afficher_encherir() ?>
+        <?= Afficher_encherir($ad["id"]) ?>
     </ul>
 
     <a href="index.php">Revenir à la liste des annonces</a>

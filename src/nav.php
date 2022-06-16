@@ -12,7 +12,7 @@ function Afficher_nav()
 
             <?php } else { ?>
                 <h1>Vroum vroouuuuummmmmm</h1>
-                <a href="user.php">Se connecter</a>
+                <a href="connexion_form.php">Se connecter</a>
                 <a href="index.php"><img src="" alt="">LOGO</a>
 
     </nav>
