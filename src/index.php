@@ -22,7 +22,7 @@ $ads = $queryads->fetchall(PDO::FETCH_ASSOC);
 <body>
     <?php Afficher_nav(); ?>
     <h2>Creation Annonce</h2>
-    <form action="ad.php" method="POST">
+    <form action="ad.php" method="POST" enctype="multipart/form-data">
         <label>title</label>
         <input type=" text" name="title">
 
@@ -45,6 +45,8 @@ $ads = $queryads->fetchall(PDO::FETCH_ASSOC);
         <input type="number" name="year" min="1910" max="2022">
         <label>ID utilisateur</label>
         <input type="number" name="id_user">
+        <label>Fichier</label>
+        <input type="file" name="file">
 
 
         <input type="submit" value="Register">
