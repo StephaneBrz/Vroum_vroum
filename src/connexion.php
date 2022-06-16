@@ -15,10 +15,13 @@ $password = htmlspecialchars($_POST["password"]);
 
 /* Préparation de la requête */
 $query = $dbh->prepare("SELECT * FROM users WHERE email = ?");
+
 /* Exécution de la requête */
 /* On obtient une valeur de résultat indiquant le nombre de lignes affectées par la requête */
 $result = $query->execute([$_POST['email']]);
 $user = $query->fetch();
+
+
 
 if (!$user) {
     header('Location:user.inscription.php');
