@@ -28,8 +28,8 @@ if (!$user) {
     exit();
 } else if (password_verify($_POST['password'], $user['password'])) {
     //echo "Valid";
-    $_SESSION['user_id'] = $user["id"];
-    $_SESSION['user_firstname'] = $user["firstname"];
+    $_SESSION["user_id"] = $user["id"];
+    $_SESSION["user_firstname"] = $user["firstname"];
     header('Location:index.php');
     exit();
 } else {
