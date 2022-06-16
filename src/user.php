@@ -23,7 +23,7 @@
         <label for="phone">Mot de passe</label>
         <input type="password" name="password" id="password" />
 
-        <input type="submit" value="S'incrire">
+        <input type="submit" value="S'inscrire">
     </form>
 </body>
 

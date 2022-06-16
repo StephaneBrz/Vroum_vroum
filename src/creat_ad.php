@@ -75,6 +75,7 @@ $ads = $query->fetchAll(PDO::FETCH_ASSOC)
                 <th>brand</th>
                 <th>power</th>
                 <th>year</th>
+                <th>image</th>
             </tr>
         </thead>
         <tbody>
@@ -89,6 +90,7 @@ $ads = $query->fetchAll(PDO::FETCH_ASSOC)
                     <td><?= $ad["brand"] ?></td>
                     <td><?= $ad["power"] ?></td>
                     <td><?= $ad["year"] ?></td>
+                    <td><?= $ad["fileimage"] ?></td>
                     <td>
                         <form action="detail-ad.php" method="post">
                             <input type="hidden" name="id" value="<?= $ad["id"] ?>">
