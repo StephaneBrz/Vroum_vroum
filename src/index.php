@@ -21,7 +21,9 @@ $ads = $queryads->fetchall(PDO::FETCH_ASSOC);
 
 <body>
     <?php Afficher_nav(); ?>
-    <h2>Creation Annonce</h2>
+    <h2>Creation Annonce id:<?php if (isset($_SESSION["user_id"])) {
+                                echo   $_SESSION["user_id"];
+                            } ?></h2>
     <form action="creat_ad.php" method="POST" enctype="multipart/form-data">
         <label>title</label>
         <input type=" text" name="title">
@@ -34,7 +36,7 @@ $ads = $queryads->fetchall(PDO::FETCH_ASSOC);
         <label>reserveprice</label>
         <input type="number" name="reserveprice" step=" 0.01">
         <label>enddate</label>
-        <input type="text" name="enddate">
+        <input type="date" name="enddate">
         <label>model</label>
         <input type="text" name="model">
         <label>brand</label>
@@ -44,9 +46,14 @@ $ads = $queryads->fetchall(PDO::FETCH_ASSOC);
         <label>year</label>
         <input type="number" name="year" min="1910" max="2022">
         <label>ID utilisateur</label>
-        <input type="number" name="id_user">
+
+        <input type="hidden" name="id_user" value="<?php if (isset($_SESSION['user_id'])) {
+                                                        $_SESSION['user_id'];
+                                                    } ?>
+                
+            } ?>">
         <label>Fichier</label>
-        <input type="file" name="file">
+        <input type="file" name="fileimage">
 
 
         <input type="submit" value="Register">
@@ -82,6 +89,7 @@ $ads = $queryads->fetchall(PDO::FETCH_ASSOC);
                         <th>year</th>
                         <th>beginprice</th>
                         <th>enddate</th>
+                        <th>image </th>
                         <th>enchere en cours</th>
                         <th>montant à encherir </th>
                     </tr>
@@ -95,6 +103,7 @@ $ads = $queryads->fetchall(PDO::FETCH_ASSOC);
                             <td><?= $ad["beginprice"] ?></td>
                             <td><?= $ad["enddate"] ?></td>
                             <td><?= $ad["price"] ?></td>
+                            <td><?= $ad["fileimage"] ?></td>
                             <td>
                                 <form action="ad_detail.php" method="post">
                                     <input type="hidden" name="id" value="<?= $ad["id"] ?>">
