@@ -1,4 +1,4 @@
-<?php
+<?php session_start();
 
 /* Import */
 require_once __DIR__ . "/lib/db.php";
@@ -19,7 +19,7 @@ $model = htmlspecialchars($_POST["model"]);
 $brand = htmlspecialchars($_POST["brand"]);
 $power = htmlspecialchars($_POST["power"]);
 $year = htmlspecialchars($_POST["year"]);
-$id_user = htmlspecialchars($_POST["id_user"]);
+$id_user = $_SESSION["user_id"];
 if (isset($_FILES["file"])) {
 
     $namefile = $_FILES["file"]["name"];
@@ -42,7 +42,7 @@ $query = $dbh->prepare("INSERT INTO ad (title,description,beginprice,	reservepri
 /* Exécution de la requête */
 /* On obtient une valeur de résultat indiquant le nombre de lignes affectées par la requête */
 $result = $query->execute([$title, $description, $beginprice, $reserveprice, $enddate, $model, $brand, $power, $year, $id_user]);
-$ads = $query->fetchAll(PDO::FETCH_ASSOC)
+$ads = $query->fetchAll(PDO::FETCH_ASSOC);
 ?>
 
 <!DOCTYPE html>
@@ -55,7 +55,8 @@ $ads = $query->fetchAll(PDO::FETCH_ASSOC)
 
 <body>
     <?php if ($result == 1) { ?>
-        <p>Merci de votre message</p>
+        <p>Merci de votre message </p>
+        <p><?php echo $title; ?></p>
     <?php } else { ?>
         <p>Une erreur s'est produite, veuillez réessayer</p>
     <?php } ?>

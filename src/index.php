@@ -1,7 +1,8 @@
 <?php
 require_once __DIR__ . "/nav.php";
 require_once __DIR__ . "/lib/db.php";
-$queryads = $dbh->prepare("SELECT * FROM ad LEFT JOIN bids b ON ad.id=b.id_ad ");
+$queryads = $dbh->prepare(" SELECT * FROM `ad` left JOIN bids b on b.id_ad=ad.id WHERE
+b.price = (SELECT MAX(price) FROM bids WHERE bids.id_ad = ad.id) OR b.id_bid IS null ");
 $resultads = $queryads->execute();
 $ads = $queryads->fetchall(PDO::FETCH_ASSOC);
 
@@ -66,56 +67,47 @@ $ads = $queryads->fetchall(PDO::FETCH_ASSOC);
     </form>
 
     <h2>Annonce encours</h2>
+
+
     <table>
+
+
         <thead>
             <tr>
                 <th>title</th>
-                <th>description</th>
-                <th>beginprice</th>
-
-                <th>enddate</th>
                 <th>model</th>
                 <th>year</th>
+                <th>beginprice</th>
+                <th>enddate</th>
+                <th>image </th>
+                <th>enchere en cours</th>
+                <th>montant à encherir </th>
             </tr>
         </thead>
         <tbody>
-            <table>
-
-
-                <thead>
-                    <tr>
-                        <th>title</th>
-                        <th>model</th>
-                        <th>year</th>
-                        <th>beginprice</th>
-                        <th>enddate</th>
-                        <th>image </th>
-                        <th>enchere en cours</th>
-                        <th>montant à encherir </th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php foreach ($ads as  $ad) { ?>
-                        <tr>
-                            <td><?= $ad["title"] ?></td>
-                            <td><?= $ad["model"] ?></td>
-                            <td><?= $ad["year"] ?></td>
-                            <td><?= $ad["beginprice"] ?></td>
-                            <td><?= $ad["enddate"] ?></td>
-                            <td><?= $ad["price"] ?></td>
-                            <td><?= $ad["fileimage"] ?></td>
-                            <td>
-                                <form action="ad_detail.php" method="post">
-                                    <input type="hidden" name="id" value="<?= $ad["id"] ?>">
-                                    <input type="submit" value="detail ad">
-                                </form>
-                                <form action="ad_detail.php" method="post">
-                                    <input type="hidden" name="id" value="<?= $ad["id"] ?>">
-                                    <input type="number" name="price">
-                                    <input type="submit" value="detail ad">
-                                </form>
-                            </td>
-                        </tr>
-                    <?php } ?>
+            <?php foreach ($ads as  $ad) { ?>
+                <tr>
+                    <td><?= $ad["title"] ?></td>
+                    <td><?= $ad["model"] ?></td>
+                    <td><?= $ad["year"] ?></td>
+                    <td><?= $ad["beginprice"] ?></td>
+                    <td><?= $ad["enddate"] ?></td>
+                    <td><?= $ad["price"] ?></td>
+                    <td><?= $ad["fileimage"] ?></td>
+                    <td>
+                        <form action="ad_detail.php" method="post">
+                            <input type="hidden" name="id" value="<?= $ad["id"] ?>">
+                            <input type="submit" value="detail ad">
+                        </form>
+                    </td>
+                    <td>
+                        <form action="bid_on_ad_result.php" method="post">
+                            <input type="hidden" name="id_ad" value="<?= $ad["id"] ?>">
+                            <input type="number" name="price">
+                            <input type="submit" value="encherir ad">
+                        </form>
+                    </td>
+                </tr>
+            <?php } ?>
 
 </body>
