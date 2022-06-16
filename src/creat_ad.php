@@ -20,14 +20,15 @@ $brand = htmlspecialchars($_POST["brand"]);
 $power = htmlspecialchars($_POST["power"]);
 $year = htmlspecialchars($_POST["year"]);
 $id_user = htmlspecialchars($_POST["id_user"]);
-if (isset($_FILES['file'])) {
-    $tmpName = $_FILES['file'];
-    $namefile = $_FILES['file']['name'];
+if (isset($_FILES["file"])) {
+
+    $namefile = $_FILES["file"]["name"];
     $tabExtension = explode('.', $namefile);
     $extension = strtolower(end($tabExtension));
-    $extensions = ['jpg', 'png', 'jpeg', 'gif'];
+    $extensions = ["jpg", "png", "jpeg", "gif"];
     if (in_array($extension, $extensions)) {
-        move_uploaded_file($tmpName, './uploade/' . $namefile);
+
+        move_uploaded_file($namefile, './upload/' . $namefile);
     } else {
         echo "mauvaise extension";
     }
@@ -93,8 +94,7 @@ $ads = $query->fetchAll(PDO::FETCH_ASSOC)
                         </form>
                     </td>
                 </tr>
-            <?php }
-            echo $ads[0]["title"] ?> ?>
+            <?php } ?>
         </tbody>
     </table>
 
