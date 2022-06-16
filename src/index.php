@@ -22,7 +22,7 @@ $ads = $queryads->fetchall(PDO::FETCH_ASSOC);
 <body>
     <?php Afficher_nav(); ?>
     <h2>Creation Annonce</h2>
-    <form action="ad.php" method="POST" enctype="multipart/form-data">
+    <form action="creat_ad.php" method="POST" enctype="multipart/form-data">
         <label>title</label>
         <input type=" text" name="title">
 
@@ -103,7 +103,7 @@ $ads = $queryads->fetchall(PDO::FETCH_ASSOC);
                             <td><?= $ad["power"] ?></td>
                             <td><?= $ad["year"] ?></td>
                             <td>
-                                <form action="detail-ad.php" method="post">
+                                <form action="ad_detail.php" method="post">
                                     <input type="hidden" name="id" value="<?= $ad["id"] ?>">
                                     <input type="submit" value="detail ad">
                                 </form>
