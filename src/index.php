@@ -1,5 +1,9 @@
 <?php
 require_once __DIR__ . "/nav.php";
+require_once __DIR__ . "/lib/db.php";
+$queryads = $dbh->prepare("SELECT * FROM ad ");
+$resultads = $queryads->execute();
+$ads = $queryads->fetchall(PDO::FETCH_ASSOC);
 
 ?>
 
@@ -51,6 +55,58 @@ require_once __DIR__ . "/nav.php";
         <input type="text" name="email" />
         <input type="submit" value="search">
     </form>
-</body>
 
-</html>
+    <h2>Annonce encours</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>title</th>
+                <th>description</th>
+                <th>beginprice</th>
+                <th>reserveprice</th>
+                <th>enddate</th>
+                <th>model</th>
+                <th>brand</th>
+                <th>power</th>
+                <th>year</th>
+            </tr>
+        </thead>
+        <tbody>
+            <table>
+
+
+                <thead>
+                    <tr>
+                        <th>title</th>
+                        <th>description</th>
+                        <th>beginprice</th>
+                        <th>reserveprice</th>
+                        <th>enddate</th>
+                        <th>model</th>
+                        <th>brand</th>
+                        <th>power</th>
+                        <th>year</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php foreach ($ads as  $ad) { ?>
+                        <tr>
+                            <td><?= $ad["title"] ?></td>
+                            <td><?= $ad["description"] ?></td>
+                            <td><?= $ad["beginprice"] ?></td>
+                            <td><?= $ad["reserveprice"] ?></td>
+                            <td><?= $ad["enddate"] ?></td>
+                            <td><?= $ad["model"] ?></td>
+                            <td><?= $ad["brand"] ?></td>
+                            <td><?= $ad["power"] ?></td>
+                            <td><?= $ad["year"] ?></td>
+                            <td>
+                                <form action="detail-ad.php" method="post">
+                                    <input type="hidden" name="id" value="<?= $ad["id"] ?>">
+                                    <input type="submit" value="detail ad">
+                                </form>
+                            </td>
+                        </tr>
+                    <?php } ?>
+
+</body>
