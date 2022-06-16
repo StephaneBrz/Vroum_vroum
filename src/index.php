@@ -1,7 +1,7 @@
 <?php
 require_once __DIR__ . "/nav.php";
 require_once __DIR__ . "/lib/db.php";
-$queryads = $dbh->prepare("SELECT * FROM ad ");
+$queryads = $dbh->prepare("SELECT * FROM ad LEFT JOIN bids b ON ad.id=b.id_ad ");
 $resultads = $queryads->execute();
 $ads = $queryads->fetchall(PDO::FETCH_ASSOC);
 
@@ -22,7 +22,7 @@ $ads = $queryads->fetchall(PDO::FETCH_ASSOC);
 <body>
     <?php Afficher_nav(); ?>
     <h2>Creation Annonce</h2>
-    <form action="ad.php" method="POST" enctype="multipart/form-data">
+    <form action="creat_ad.php" method="POST" enctype="multipart/form-data">
         <label>title</label>
         <input type=" text" name="title">
 
@@ -65,11 +65,9 @@ $ads = $queryads->fetchall(PDO::FETCH_ASSOC);
                 <th>title</th>
                 <th>description</th>
                 <th>beginprice</th>
-                <th>reserveprice</th>
+
                 <th>enddate</th>
                 <th>model</th>
-                <th>brand</th>
-                <th>power</th>
                 <th>year</th>
             </tr>
         </thead>
@@ -80,31 +78,31 @@ $ads = $queryads->fetchall(PDO::FETCH_ASSOC);
                 <thead>
                     <tr>
                         <th>title</th>
-                        <th>description</th>
-                        <th>beginprice</th>
-                        <th>reserveprice</th>
-                        <th>enddate</th>
                         <th>model</th>
-                        <th>brand</th>
-                        <th>power</th>
                         <th>year</th>
+                        <th>beginprice</th>
+                        <th>enddate</th>
+                        <th>enchere en cours</th>
+                        <th>montant à encherir </th>
                     </tr>
                 </thead>
                 <tbody>
                     <?php foreach ($ads as  $ad) { ?>
                         <tr>
                             <td><?= $ad["title"] ?></td>
-                            <td><?= $ad["description"] ?></td>
-                            <td><?= $ad["beginprice"] ?></td>
-                            <td><?= $ad["reserveprice"] ?></td>
-                            <td><?= $ad["enddate"] ?></td>
                             <td><?= $ad["model"] ?></td>
-                            <td><?= $ad["brand"] ?></td>
-                            <td><?= $ad["power"] ?></td>
                             <td><?= $ad["year"] ?></td>
+                            <td><?= $ad["beginprice"] ?></td>
+                            <td><?= $ad["enddate"] ?></td>
+                            <td><?= $ad["price"] ?></td>
                             <td>
-                                <form action="detail-ad.php" method="post">
+                                <form action="ad_detail.php" method="post">
                                     <input type="hidden" name="id" value="<?= $ad["id"] ?>">
+                                    <input type="submit" value="detail ad">
+                                </form>
+                                <form action="ad_detail.php" method="post">
+                                    <input type="hidden" name="id" value="<?= $ad["id"] ?>">
+                                    <input type="number" name="price">
                                     <input type="submit" value="detail ad">
                                 </form>
                             </td>
