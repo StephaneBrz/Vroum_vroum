@@ -1,4 +1,4 @@
-<?php
+<?php session_start();
 
 /* Import */
 require_once __DIR__ . "/lib/db.php";
@@ -20,9 +20,15 @@ $query = $dbh->prepare("SELECT * FROM users WHERE email = ?");
 $result = $query->execute([$_POST['email']]);
 $user = $query->fetch();
 
-if ($user && password_verify($_POST['password'], $user['password']))
-{
-    echo "Valid";
+if (!$user) {
+    header('Location:user.inscription.php');
+    exit();
+} else if (password_verify($_POST['password'], $user['password'])) {
+    //echo "Valid";
+    $_SESSION['user_id'] = $user["id"];
+    $_SESSION['user_firstname'] = $user["firstname"];
+    header('Location:index.php');
+    exit();
 } else {
     echo "Invalid";
 }

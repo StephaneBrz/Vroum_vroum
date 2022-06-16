@@ -1,3 +1,8 @@
+<?php
+require_once __DIR__ . "/nav.php";
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -11,6 +16,7 @@
 
 
 <body>
+    <?php Afficher_nav(); ?>
     <h2>Creation Annonce</h2>
     <form action="ad.php" method="POST">
         <label>title</label>
