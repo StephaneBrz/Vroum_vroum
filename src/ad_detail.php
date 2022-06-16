@@ -13,10 +13,11 @@ if ($_SERVER["REQUEST_METHOD"] != "POST") {
 $id = filter_var($_POST["id"], FILTER_SANITIZE_NUMBER_INT);
 
 /* Préparation de la requête */
-$query = $dbh->prepare("SELECT FROM ad WHERE id = ?;");
+$query = $dbh->prepare("SELECT * FROM ad WHERE id = ?;");
 
 /* Exécution de la requête */
 $result = $query->execute([$id]);
+$ad = $query->fetch();
 
 ?>
 
@@ -29,16 +30,16 @@ $result = $query->execute([$id]);
 </head>
 
 <body>
-    <h2>Annonce n° <?= $id_ad ?></h2>
+    <h2>Annonce n° <?= $ad["id"] ?></h2>
     <ul>
         <!-- Photo de la voiture -->
-        <li><?= $title ?></li>
-        <li><?= $description ?></li>
-        <li><?= $brand ?></li>
-        <li><?= $model ?></li>
-        <li><?= $year ?></li>
-        <li><?= $power ?></li>
-        <li><?= $enddate ?></li>
+        <li><?= $ad["title"] ?></li>
+        <li><?= $ad["description"] ?></li>
+        <li><?= $ad["brand"] ?></li>
+        <li><?= $ad["model"] ?></li>
+        <li><?= $ad["year"] ?></li>
+        <li><?= $ad["power"] ?></li>
+        <li><?= $ad["enddate"] ?></li>
         <!-- Montant enchère en cours -->
         <!-- Input type number saisi d'enchère -->
         <!-- button ENCHERIR -->
