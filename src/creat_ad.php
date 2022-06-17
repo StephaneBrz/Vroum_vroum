@@ -1,5 +1,5 @@
 <?php
-
+session_start();
 /* Import */
 require_once __DIR__ . "/lib/db.php";
 
@@ -19,16 +19,20 @@ $model = htmlspecialchars($_POST["model"]);
 $brand = htmlspecialchars($_POST["brand"]);
 $power = htmlspecialchars($_POST["power"]);
 $year = htmlspecialchars($_POST["year"]);
-$id_user = htmlspecialchars($_POST["id_user"]);
-if (isset($_FILES["file"])) {
+$id_user = $_SESSION["user_id"];
+if (isset($_FILES["fileimage"])) {
 
-    $namefile = $_FILES["file"]["name"];
-    $tabExtension = explode('.', $namefile);
+    $fileimage = $_FILES["fileimage"]["name"];
+    $fileimagetemp = $_FILES["fileimage"]["tmp_name"];
+    // echo "<script type='text/javascript'>alert( $fileimagetemp);</script>";
+    $tabExtension = explode('.', $fileimage);
     $extension = strtolower(end($tabExtension));
     $extensions = ["jpg", "png", "jpeg", "gif"];
     if (in_array($extension, $extensions)) {
 
-        move_uploaded_file($namefile, './upload/' . $namefile);
+        move_uploaded_file($fileimagetemp . "/" . $fileimage,  __DIR__ . "/upload/" . $fileimage);
+        //echo "ligne34" . $fileimagetemp;
+        // copy(" /var/www/html/" . $fileimage,  " /var/www/html/test/" . $fileimage);
     } else {
         echo "mauvaise extension";
     }
@@ -37,14 +41,16 @@ if (isset($_FILES["file"])) {
 
 //$dbh = new PDO("mysql:dbname=VROUM;host=mysql", "root", "root");
 /* Préparation de la requête */
-$query = $dbh->prepare("INSERT INTO ad (title,description,beginprice,	reserveprice ,enddate ,	model ,	brand ,	power, 	year,`id_user`) VALUES (?, ?, ?, ?, ?,?,?,?,?,?);");
+$query = $dbh->prepare("INSERT INTO ad (title,description,beginprice,	reserveprice ,enddate ,	model ,	brand ,	power, 	year,`id_user`,fileimage) VALUES (?, ?, ?, ?, ?,?,?,?,?,?,?);");
 
 /* Exécution de la requête */
 /* On obtient une valeur de résultat indiquant le nombre de lignes affectées par la requête */
-$result = $query->execute([$title, $description, $beginprice, $reserveprice, $enddate, $model, $brand, $power, $year, $id_user]);
-$ads = $query->fetchAll(PDO::FETCH_ASSOC)
-?>
+$result = $query->execute([$title, $description, $beginprice, $reserveprice, $enddate, $model, $brand, $power, $year, $id_user, $fileimage]);
+$ads = $query->fetchAll(PDO::FETCH_ASSOC);
 
+//header('location:index.php');
+//exit();
+?>
 <!DOCTYPE html>
 <html lang="fr">
 
@@ -54,52 +60,51 @@ $ads = $query->fetchAll(PDO::FETCH_ASSOC)
 </head>
 
 <body>
-    <?php if ($result == 1) { ?>
-        <p>Merci de votre message</p>
-    <?php } else { ?>
-        <p>Une erreur s'est produite, veuillez réessayer</p>
-    <?php } ?>
-    <table>
+    <h4><?php
+        if (isset($_FILES["fileimage"])) {
+            var_dump($_FILES["fileimage"]["tmp_name"]);
+        } ?></h4>
+    <?php $showadcreat = function () use ($result, $title, $description, $beginprice, $reserveprice, $enddate, $model, $brand, $power, $year, $fileimage) {
+        if ($result == 1) { ?>
 
+            <p>Merci de votre message </p>
+            <table>
+                <thead>
+                    <tr>
+                        <th>title</th>
+                        <th>description</th>
+                        <th>beginprice</th>
+                        <th>reserveprice</th>
+                        <th>enddate</th>
+                        <th>model</th>
+                        <th>brand</th>
+                        <th>power</th>
+                        <th>year</th>
+                        <th>image</th>
+                    </tr>
+                </thead>
+                <tbody>
 
-        <thead>
-            <tr>
-                <th>title</th>
-                <th>description</th>
-                <th>beginprice</th>
-                <th>reserveprice</th>
-                <th>enddate</th>
-                <th>model</th>
-                <th>brand</th>
-                <th>power</th>
-                <th>year</th>
-                <th>image</th>
-            </tr>
-        </thead>
-        <tbody>
-            <?php foreach ($ads as  $ad) { ?>
-                <tr>
-                    <td><?= $ad["title"] ?></td>
-                    <td><?= $ad["description"] ?></td>
-                    <td><?= $ad["beginprice"] ?></td>
-                    <td><?= $ad["reserveprice"] ?></td>
-                    <td><?= $ad["enddate"] ?></td>
-                    <td><?= $ad["model"] ?></td>
-                    <td><?= $ad["brand"] ?></td>
-                    <td><?= $ad["power"] ?></td>
-                    <td><?= $ad["year"] ?></td>
-                    <td><?= $ad["fileimage"] ?></td>
-                    <td>
-                        <form action="detail-ad.php" method="post">
-                            <input type="hidden" name="id" value="<?= $ad["id"] ?>">
-                            <input type="submit" value="detail ad">
-                        </form>
-                    </td>
-                </tr>
-            <?php } ?>
-        </tbody>
-    </table>
+                    <tr>
+                        <td><?= $title ?></td>
+                        <td><?= $description ?></td>
+                        <td><?= $beginprice ?></td>
+                        <td><?= $reserveprice ?></td>
+                        <td><?= $enddate ?></td>
+                        <td><?= $model ?></td>
+                        <td><?= $brand ?></td>
+                        <td><?= $power ?></td>
+                        <td><?= $year ?></td>
+                        <td><?= $fileimage ?></td>
+
+            </table>
+
+        <?php } else { ?>
+
+            <p>Une erreur s'est produite, veuillez réessayer</p>
+        <?php } ?>
+
 
 </body>
-
-</html>
+<?php };
+    $showadcreat(); ?>
