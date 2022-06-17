@@ -108,10 +108,7 @@ if (isset($_SESSION['user_id'])) {
 
             </form>
         </div>
-        <div id="retour">
-            <a href="index.php"><button>Retour à l'accueil</button></a>
 
-        </div>
 
     <?php }
     ?>

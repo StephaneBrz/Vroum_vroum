@@ -12,7 +12,9 @@ $querybid = $dbh->prepare("SELECT * FROM `bids` b left JOIN ad on b.id_ad=ad.id 
 b.price = (SELECT MAX(price)  WHERE b.id_user = ?)  ");
 $resultbids = $querybid->execute([$_SESSION['user_id']]);
 $bids = $querybid->fetchall(PDO::FETCH_ASSOC);
+Afficher_nav();
 ?>
+
 <h3>vente encours</h3>
 <table>
 
