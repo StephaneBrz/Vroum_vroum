@@ -30,9 +30,9 @@ if (isset($_FILES["fileimage"])) {
     $extensions = ["jpg", "png", "jpeg", "gif"];
     if (in_array($extension, $extensions)) {
 
-        move_uploaded_file($fileimagetemp . "/" . $fileimage,  __DIR__ . "/upload/" . $fileimage);
+        move_uploaded_file($fileimagetemp,  __DIR__ . "/upload/" . $fileimage);
         //echo "ligne34" . $fileimagetemp;
-        // copy(" /var/www/html/" . $fileimage,  " /var/www/html/test/" . $fileimage);
+        //copy(" /var/www/html/" . $fileimage,  " /var/www/html/test/" . $fileimage);
     } else {
         echo "mauvaise extension";
     }
