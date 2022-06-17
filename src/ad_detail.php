@@ -28,12 +28,13 @@ $ad = $query->fetch();
 <head>
     <meta charset="UTF-8">
     <title>Détail de l'annonce</title>
+    <title><?php echo $id ?></title>
 </head>
 
 <body>
     <h2>Annonce n° <?= $ad["id"] ?></h2>
     <ul>
-        <!-- Photo de la voiture -->
+        <li><?= $ad["fileimage"] ?></li>
         <li><?= $ad["title"] ?></li>
         <li><?= $ad["description"] ?></li>
         <li><?= $ad["brand"] ?></li>
@@ -42,8 +43,12 @@ $ad = $query->fetch();
         <li><?= $ad["power"] ?></li>
         <li><?= $ad["enddate"] ?></li>
         <!-- Montant enchère en cours -->
-
-        <?= Afficher_encherir() ?>
+        <?php if ($ad["enddate"] > $date = date('Y-m-d H:i:s')) {
+            Afficher_encherir($ad["id"]);
+        }
+        if ($ad["enddate"] < $date = date('Y-m-d H:i:s')) {
+            echo "pas d'enchere possible";
+        }  ?>
     </ul>
 
     <a href="index.php">Revenir à la liste des annonces</a>
