@@ -110,7 +110,8 @@ $ads = $queryads->fetchall(PDO::FETCH_ASSOC);
                 <tr>
 
                     <td><?= $ad["fileimage"] ?></td>
-                    <td><img src=<?php "../upload/" . $ad["fileimage"] ?>"></td>
+                    <td><img src="<?php echo "../upload/" . $ad["fileimage"]; ?>"></td>
+                    <td><?= $ad["id"] ?></td>
                     <td><?= $ad["title"] ?></td>
                     <td><?= $ad["model"] ?></td>
                     <td><?= $ad["year"] ?></td>
@@ -120,7 +121,7 @@ $ads = $queryads->fetchall(PDO::FETCH_ASSOC);
                     <td><?= $ad["firstname"] ?></td>
 
                     <td>
-                        <form action="ad_detail.php" method="post">
+                        <form action=" ad_detail.php" method="post">
                             <input type="hidden" name="id" value="<?= $ad["id"] ?>">
                             <input type="submit" value="detail ad">
                         </form>

@@ -24,6 +24,12 @@ if ($user) {
     // email n'existe pas
 } 
 
+<<<<<<< HEAD
+=======
+// $queryverifemail = $dbh->prepare("SELECT * FROM users WHERE email = ?");
+// $resultverifyemail = $queryverifemail->execute([$_POST['email']]);
+// $emailverif = $queryverifemail->fetch();
+>>>>>>> 098e8ff4766474404e7ee0402eadcc095fc69d1e
 /* Préparation de la requête */
 $query = $dbh->prepare("INSERT INTO users (firstname, lastname, email, password) VALUES (?, ?, ?, ?);");
 //if ($resultverifyemail == 1) {
@@ -33,6 +39,7 @@ $query = $dbh->prepare("INSERT INTO users (firstname, lastname, email, password)
 /* Exécution de la requête */
 /* On obtient une valeur de résultat indiquant le nombre de lignes affectées par la requête */
 //else {
+<<<<<<< HEAD
     $result = $query->execute([$firstname, $lastname, $email, $password]);
     if ($result == 1) {
         $query = $dbh->prepare("SELECT * FROM users WHERE email = ?");
@@ -48,3 +55,18 @@ $query = $dbh->prepare("INSERT INTO users (firstname, lastname, email, password)
     }
     
 ?>
+=======
+$result = $query->execute([$firstname, $lastname, $email, $password]);
+if ($result == 1) {
+    // $query = $dbh->prepare("SELECT * FROM users WHERE email = ?");
+    // $result = $query->execute([$_POST['email']]);
+    // $user = $query->fetch();
+    $_SESSION["user_id"] = $user["id"];
+    $_SESSION["user_firstname"] = $user["firstname"];
+
+
+
+    header("location:index.php");
+    exit();
+}
+>>>>>>> 098e8ff4766474404e7ee0402eadcc095fc69d1e
