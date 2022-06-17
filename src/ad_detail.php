@@ -3,6 +3,7 @@
 /* Import */
 require_once __DIR__ . "/lib/db.php";
 require_once __DIR__ . "/bid_on_ad.php";
+require_once __DIR__ . "/bid_histo_on_ad_detail.php";
 
 /* Si le verbe HTTP est différent de POST */
 if ($_SERVER["REQUEST_METHOD"] != "POST") {
