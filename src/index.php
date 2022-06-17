@@ -82,7 +82,7 @@ $ads = $queryads->fetchall(PDO::FETCH_ASSOC);
     </form>
     <h2>derniere annonce cree</h2>
 
-    <img src="/src/upload/FB_IMG_1512716286635.jpg">
+
 
 
     <table>
@@ -108,9 +108,9 @@ $ads = $queryads->fetchall(PDO::FETCH_ASSOC);
         <tbody>
             <?php foreach ($ads as  $ad) { ?>
                 <tr>
+
                     <td><?= $ad["fileimage"] ?></td>
-                    <td><img src="/upload/<?php $ad["fileimage"] ?>"></td>
-                    <td><img src="/src/upload/IMG_20171022_123147.jpg"></td>
+                    <td><img src=<?php "../upload/" . $ad["fileimage"] ?>"></td>
                     <td><?= $ad["title"] ?></td>
                     <td><?= $ad["model"] ?></td>
                     <td><?= $ad["year"] ?></td>
