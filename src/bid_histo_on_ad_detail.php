@@ -2,8 +2,10 @@
 
 /* Import */
 require_once __DIR__ . "/lib/db.php";
-require_once __DIR__ . "/bid_on_ad.php";
 require_once __DIR__ . "/ad_detail.php";
+require_once __DIR__ . "/bid_on_ad.php";
+
+
 
 /* Si le verbe HTTP est différent de POST */
 if ($_SERVER["REQUEST_METHOD"] != "POST") {
@@ -20,29 +22,27 @@ ad.id = ? ORDER by b.price DESC");
 
 /* Exécution de la requête */
 $result = $query->execute([$id]);
-$ad = $query->fetch();
+$ads = $query->fetchAll();
+function showBidHisto($ads)
+{ ?>
 
-?>
 
-<!DOCTYPE html>
-<html lang="fr">
 
-<head>
-    <meta charset="UTF-8">
-    <title>Détail de l'annonce</title>
-    <title><?php echo $id ?></title>
-</head>
 
-<body>
-    <h2>Historique des enchères</h2>
-    <?php foreach ($bids) { ?>
-                <tr>
-            <td><?= "price: " . $ad["price"] ?> par <?= $ad["firstname"] ?></td>
-        
-                </tr>
-            <?php } ?>
-    </ul>
+    <body>
+        <h2>Historique des enchères</h2>
+        <table>
+            <thead>
+                <th>prix </th>
+                <th>nom</th>
+            </thead>
+            <tbody>
+                <?php foreach ($ads as $index => $ad) { ?>
 
-</body>
-
-</html>
+                    <tr>
+                        <td><?= "price: " . $ad["price"] ?> par <?= $ad["firstname"] ?></td>
+                    </tr>
+                <?php } ?>
+            </tbody>
+        </table>
+    <?php          } ?>

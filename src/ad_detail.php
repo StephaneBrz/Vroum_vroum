@@ -57,6 +57,8 @@ $ad = $query->fetch();
         }  ?>
     </ul>
 
+    <?php showBidHisto($ads); ?>
+
     <a href="index.php">Revenir à la liste des annonces</a>
 
 </body>
