@@ -7,7 +7,10 @@ if ($_SERVER["REQUEST_METHOD"] != "POST") {
     http_response_code(405); // Code HTTP Method Not Allowed (Verbe HTTP non autorisé)
     die(); // Arrêt du script
 }
-
+// if ($ad["enddate"] > $date = date('Y-m-d H:i:s')) {
+//     http_response_code(405); // Code HTTP Method Not Allowed (Verbe HTTP non autorisé)
+//     die(); // Arrêt du script
+// }
 // Récupération des valeurs du formulaire de la requête
 $price =  htmlspecialchars($_POST["price"]);
 

@@ -126,11 +126,15 @@ $ads = $queryads->fetchall(PDO::FETCH_ASSOC);
                         </form>
                     </td>
                     <td>
-                        <form action="bid_on_ad_result.php" method="post">
-                            <input type="hidden" name="id_ad" value="<?= $ad["id"] ?>">
-                            <input type="number" name="price">
-                            <input type="submit" value="encherir ad">
-                        </form>
+                        <?php if ($ad["enddate"] > $date = date('Y-m-d H:i:s')) { ?>
+                            <form action="bid_on_ad_result.php" method="post">
+                                <input type="hidden" name="id_ad" value="<?= $ad["id"] ?>">
+                                <input type="number" name="price">
+                                <input type="submit" value="encherir ad">
+                            </form>
+                        <?php  } ?>
+                        <?php if ($ad["enddate"] < $date = date('Y-m-d H:i:s')) { ?>
+                            <p>enchere termineé</p><?php  } ?>
                     </td>
                 </tr>
             <?php } ?>

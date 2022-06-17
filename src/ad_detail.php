@@ -43,8 +43,12 @@ $ad = $query->fetch();
         <li><?= $ad["power"] ?></li>
         <li><?= $ad["enddate"] ?></li>
         <!-- Montant enchère en cours -->
-
-        <?= Afficher_encherir($ad["id"]) ?>
+        <?php if ($ad["enddate"] > $date = date('Y-m-d H:i:s')) {
+            Afficher_encherir($ad["id"]);
+        }
+        if ($ad["enddate"] < $date = date('Y-m-d H:i:s')) {
+            echo "pas d'enchere possible";
+        }  ?>
     </ul>
 
     <a href="index.php">Revenir à la liste des annonces</a>
