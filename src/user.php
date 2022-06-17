@@ -1,13 +1,7 @@
-<!DOCTYPE html>
-<html lang="fr">
+<?php
+require_once __DIR__ . "/lib/db.php";
 
-<head>
-    <meta charset="UTF-8">
-    <title>Vroum vroum</title>
-</head>
-
-
-<body>
+function Afficher_formulaire_inscription_newuser () { ?>
     <h1>Formulaire d'Inscription</h1>
     <form action="user.inscription.php" method="post">
 
@@ -25,6 +19,7 @@
 
         <input type="submit" value="S'inscrire">
     </form>
-</body>
+<?php } ?>
+<?php
 
-</html>
+?>

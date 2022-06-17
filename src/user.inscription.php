@@ -1,5 +1,4 @@
 <?php session_start();
-
 /* Import */
 require_once __DIR__ . "/lib/db.php";
 
@@ -15,10 +14,16 @@ $lastname = htmlspecialchars($_POST["lastname"]);
 $email = htmlspecialchars(filter_var($_POST["email"], FILTER_SANITIZE_EMAIL));
 $password = password_hash(($_POST["password"]), PASSWORD_DEFAULT);
 
+$query = $dbh->prepare("SELECT * FROM customers WHERE email = ?");
+$result = $query->execute([$email]);
 
-$queryverifemail = $dbh->prepare("SELECT * FROM users WHERE email = ?");
-$resultverifyemail = $queryverifemail->execute([$_POST['email']]);
-$emailverif = $queryverifemail->fetch();
+
+if ($user) {
+    echo "Cet email est déjà utilisé";
+} else {
+    // email n'existe pas
+} 
+
 /* Préparation de la requête */
 $query = $dbh->prepare("INSERT INTO users (firstname, lastname, email, password) VALUES (?, ?, ?, ?);");
 //if ($resultverifyemail == 1) {
@@ -26,7 +31,8 @@ $query = $dbh->prepare("INSERT INTO users (firstname, lastname, email, password)
 //    echo "email deja existant";
 //}
 /* Exécution de la requête */
-/* On obtient une valeur de résultat indiquant le nombre de lignes affectées par la requête */ else {
+/* On obtient une valeur de résultat indiquant le nombre de lignes affectées par la requête */
+//else {
     $result = $query->execute([$firstname, $lastname, $email, $password]);
     if ($result == 1) {
         $query = $dbh->prepare("SELECT * FROM users WHERE email = ?");
@@ -40,4 +46,5 @@ $query = $dbh->prepare("INSERT INTO users (firstname, lastname, email, password)
         header("location:index.php");
         exit();
     }
-}
+    
+?>

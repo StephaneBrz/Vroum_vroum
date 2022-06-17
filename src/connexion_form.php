@@ -1,6 +1,7 @@
 <?php
 require_once __DIR__ ."/nav.php";
 require_once __DIR__ ."/footer.php";
+require_once __DIR__ ."/user.php";
 
 ?>
 
@@ -27,8 +28,14 @@ require_once __DIR__ ."/footer.php";
 
             <input type="submit" value="Send message">
 
-            <a href="user.php">Vous n'avez pas encore de compte, c'est le moment d'en créer un!</a>
+            <a href="connexion_form.php?name">Vous n'avez pas encore de compte, c'est le moment d'en créer un!</a>
         </form>
+
+    <?php if (isset($_GET['name'])) {
+         echo Afficher_formulaire_inscription_newuser ();
+     }
+     ?>
+
     <footer>
         <?php echo Afficher_footer() ?>
     </footer>
