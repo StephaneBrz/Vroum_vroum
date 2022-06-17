@@ -3,6 +3,7 @@
 /* Import */
 require_once __DIR__ . "/lib/db.php";
 require_once __DIR__ . "/bid_on_ad.php";
+require_once __DIR__ . "/bid_histo_on_ad_detail.php";
 
 /* Si le verbe HTTP est différent de POST */
 if ($_SERVER["REQUEST_METHOD"] != "POST") {
@@ -14,7 +15,8 @@ if ($_SERVER["REQUEST_METHOD"] != "POST") {
 $id = filter_var($_POST["id"], FILTER_SANITIZE_NUMBER_INT);
 
 /* Préparation de la requête */
-$query = $dbh->prepare("SELECT * FROM ad WHERE id = ?;");
+$query = $dbh->prepare(" SELECT ad.*,b.*,u.lastname,u.firstname FROM `ad` left JOIN bids b on b.id_ad=ad.id left JOIN users u on b.id_user=u.id WHERE
+ad.id = ? ORDER by b.price DESC");
 
 /* Exécution de la requête */
 $result = $query->execute([$id]);
@@ -34,7 +36,9 @@ $ad = $query->fetch();
 <body>
     <h2>Annonce n° <?= $ad["id"] ?></h2>
     <ul>
-        <li><?= $ad["fileimage"] ?></li>
+
+
+        <li><img src="<?php echo "../upload/" . $ad["fileimage"]; ?>"></li>
         <li><?= $ad["title"] ?></li>
         <li><?= $ad["description"] ?></li>
         <li><?= $ad["brand"] ?></li>
@@ -42,6 +46,8 @@ $ad = $query->fetch();
         <li><?= $ad["year"] ?></li>
         <li><?= $ad["power"] ?></li>
         <li><?= $ad["enddate"] ?></li>
+        <li><?= "price: " . $ad["price"] ?></li>
+        <td><?= $ad["firstname"] ?></td>
         <!-- Montant enchère en cours -->
         <?php if ($ad["enddate"] > $date = date('Y-m-d H:i:s')) {
             Afficher_encherir($ad["id"]);

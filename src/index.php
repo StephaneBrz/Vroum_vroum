@@ -111,7 +111,7 @@ $ads = $queryads->fetchall(PDO::FETCH_ASSOC);
 
                     <td><?= $ad["fileimage"] ?></td>
                     <td><img src="<?php echo "../upload/" . $ad["fileimage"]; ?>"></td>
-
+                    <td><?= $ad["id"] ?></td>
                     <td><?= $ad["title"] ?></td>
                     <td><?= $ad["model"] ?></td>
                     <td><?= $ad["year"] ?></td>
