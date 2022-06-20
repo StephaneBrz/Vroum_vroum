@@ -13,10 +13,44 @@ function Afficher_nav()
                             } ?>
 
             <?php } else { ?>
+<<<<<<< HEAD
                 <img src="./logoVroumVroum.png">
                 <a href="connexion_form.php">Se connecter</a>
                 <a href="index.php"><img src="" alt="">LOGO</a>
+=======
+                <h1>Vroum vroouuuuummmmmm</h1>
+                <div id="blocnavdroit">
+                <a href="connexion_form.php" id="liendroit">Se connecter</a>
+                <a href="index.php" id="liendroit"><img src="" alt="">Home</a>
+                </div>
+                
+>>>>>>> main
 
     </nav>
 <?php }
     } ?>
+
+
+<style>
+
+nav {
+    background: black;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 2%;
+    border-bottom: 4px solid #c44646;;
+}
+
+#blocnavdroit {
+display: flex;
+color: white;
+}
+
+#liendroit{
+    color: white;
+    margin: 10px;   
+} 
+
+</style>

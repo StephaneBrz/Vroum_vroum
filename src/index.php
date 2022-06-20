@@ -41,38 +41,48 @@ $ads = $queryads->fetchall(PDO::FETCH_ASSOC);
                                 echo   $_SESSION["user_id"];
                             } ?></h2>
     <form action="creat_ad.php" method="POST" enctype="multipart/form-data">
-        <label>title</label>
-        <input type=" text" name="title" value="title">
+        <div id="blocinput">
+            <label id="bloclabelinput">title:</label>
+            <input type=" text" name="title" value="title" id="bloclabelinput">
 
-        <label>description</label>
-        <input type="text" name="description" value="description">
+            <label id="bloclabelinput">description:</label>
+            <input type="text" name="description" value="description" id="bloclabelinput">
 
-        <label>beginprice</label>
-        <input type="number" name="beginprice" step="0.01" value="10">
-        <label>reserveprice</label>
-        <input type="number" name="reserveprice" step=" 0.01" value="20">
-        <label>enddate</label>
-        <input type="date" name="enddate" value="2021-01-01">
-        <label>model</label>
-        <input type="text" name="model" value="model">
-        <label>brand</label>
-        <input type="text" name="brand" value="brand">
-        <label>power</label>
-        <input type="text" name="power" value=100>
-        <label>year</label>
-        <input type="number" name="year" min="1910" max="2022" value=2000>
-        <label>ID utilisateur</label>
+            <label id="bloclabelinput">beginprice:</label>
+            <input type="number" name="beginprice" step="0.01" value="10" id="bloclabelinput">
+        <div id="blocinput">
+            <label id="bloclabelinput">reserveprice:</label>
+            <input type="number" name="reserveprice" step=" 0.01" value="20" id="bloclabelinput">
 
-        <input type="hidden" name="id_user" value="<?php if (isset($_SESSION['user_id'])) {
-                                                        $_SESSION['user_id'];
-                                                    } ?>
-                
-            } ?>">
-        <label>Fichier</label>
-        <input type="file" name="fileimage">
+            <label id="bloclabelinput">enddate:</label>
+            <input type="date" name="enddate" value="2021-01-01" id="bloclabelinput">
+
+            <label id="bloclabelinput">model:</label>
+            <input type="text" name="model" value="model" id="bloclabelinput">
+         </div>
+         <div id="blocinput">   
+            <label id="bloclabelinput">brand:</label>
+            <input type="text" name="brand" value="brand" id="bloclabelinput">
+
+            <label id="bloclabelinput">power:</label>
+            <input type="text" name="power" value=100 id="bloclabelinput">
+
+            <label id="bloclabelinput">year:</label>
+            <input type="number" name="year" min="1910" max="2022" value="2000" id="bloclabelinput">
+        </div>
+            <label id="bloclabelinput">ID utilisateur:</label>
+            <input type="hidden" name="id_user"  id="bloclabelinput" value="<?php if (isset($_SESSION['user_id'])) {
+                                                            $_SESSION['user_id'];
+                                                        } ?>
+                    
+                } ?>">
+            <label id="bloclabelinput">Fichier:</label>
+            <input type="file" name="fileimage" id="bloclabelinput">
 
 
-        <input type="submit" value="Register">
+            <input type="submit" value="Register" class="button">
+        </div>
+
     </form>
 
     <h2>Veuillez taper le champs pour effectier le tri des annonce</h2>
@@ -141,3 +151,48 @@ $ads = $queryads->fetchall(PDO::FETCH_ASSOC);
             <?php } ?>
 
 </body>
+
+
+<style scoped>
+body{
+    text-align: center;
+}
+
+h2{
+    color: #c44646;
+}
+
+#blocinput {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-content: center;
+}
+
+.button{
+    margin: 10px;
+    padding:10px 18px;
+    background-color: #c44646;
+    color: white;
+}
+
+.button:hover{
+    background-color: white;
+    color: #c44646;
+    cursor: pointer;
+    font-weight: bolder;
+    border: 2px solid #c44646;
+    font-weight: bolder;
+}
+
+#bloclabelinput{
+    margin: 10px;
+}
+
+.bloclabelinputclass{
+    margin-bottom: 50px, !important;
+}
+
+</style>
